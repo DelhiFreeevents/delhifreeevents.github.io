@@ -254,7 +254,45 @@ function renderEvents() {
       (!city || getField(event,"City").toLowerCase() === city) &&
       (!category || getField(event,"Category").toLowerCase() === category);
   });
+const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
+  function eventDateValue(event) {
+    const raw = getField(event, "Date").trim();
+    if (!raw) return null;
+
+    const match = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+
+    if (match) {
+      return new Date(
+        Number(match[1]),
+        Number(match[2]) - 1,
+        Number(match[3])
+      ).getTime();
+    }
+
+    const parsed = new Date(raw);
+    if (isNaN(parsed.getTime())) return null;
+
+    parsed.setHours(0, 0, 0, 0);
+    return parsed.getTime();
+  }
+
+  filtered.sort((a, b) => {
+    const dateA = eventDateValue(a);
+    const dateB = eventDateValue(b);
+
+    if (dateA === null) return 1;
+    if (dateB === null) return -1;
+
+    const upcomingA = dateA >= today.getTime();
+    const upcomingB = dateB >= today.getTime();
+
+    if (upcomingA && !upcomingB) return -1;
+    if (!upcomingA && upcomingB) return 1;
+
+    return upcomingA ? dateA - dateB : dateB - dateA;
+  });
   const container = document.getElementById("eventsList");
   document.getElementById("status").textContent =
     `${filtered.length} event${filtered.length === 1 ? "" : "s"} found`;
