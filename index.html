@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Events | Discover. Participate. Perform.</title>
+<style>
+:root {
+  --wine:#702635;
+  --dark:#211d20;
+  --gold:#d6b36a;
+  --cream:#f7f1e8;
+  --muted:#b9afb0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--dark);color:var(--cream);
+  font-family:Arial,sans-serif;line-height:1.6
+}
+header{
+  padding:22px 6%;display:flex;justify-content:space-between;
+  align-items:center;border-bottom:1px solid #514047
+}
+.logo{font-family:Georgia,serif;font-size:23px;letter-spacing:2px}
+.logo span{color:var(--gold)}
+nav a{color:var(--cream);text-decoration:none;margin-left:18px;font-size:14px}
+.hero{
+  padding:65px 7% 55px;text-align:center;
+  background:linear-gradient(135deg,#702635,#321f28 70%,#211d20)
+}
+.hero small{color:var(--gold);letter-spacing:4px}
+.hero h1{font:clamp(38px,8vw,65px) Georgia,serif;margin:15px 0}
+.hero p{color:#eee0dc;max-width:540px;margin:0 auto 25px}
+.btn{
+  display:inline-block;background:var(--gold);color:#211d20;
+  padding:12px 22px;border-radius:4px;text-decoration:none;
+  font-weight:bold;border:0;cursor:pointer
+}
+section{padding:38px 6%}
+.section-title{font:30px Georgia,serif;margin:0 0 8px}
+.sub{color:var(--muted);margin-top:0}
+.filters{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;
+  margin:22px 0
+}
+input,select{
+  width:100%;padding:13px;border-radius:5px;
+  border:1px solid #65535a;background:#30292e;color:white;
+  font-size:14px
+}
+input::placeholder{color:#b9afb0}
+.events{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px
+}
+.card{
+  background:#30292e;border:1px solid #514047;
+  border-radius:8px;overflow:hidden
+}
+.poster{
+  height:135px;background:linear-gradient(135deg,#702635,#b47c58);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font:25px Georgia,serif
+}
+.card-body{padding:17px}
+.tag{color:var(--gold);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.card h3{font:22px Georgia,serif;margin:7px 0}
+.detail{color:var(--muted);font-size:13px;margin:5px 0}
+.note{font-size:12px;color:#c9bdbd}
+.share{
+  background:#33252b;border-top:1px solid #57434a;
+  border-bottom:1px solid #57434a;text-align:center
+}
+.share h2{font:30px Georgia,serif}
+footer{text-align:center;padding:28px;color:var(--muted);font-size:13px}
+footer strong{color:var(--gold)}
+@media(max-width:600px){
+  header{padding:16px 5%;flex-wrap:wrap;gap:12px}
+  nav{width:100%}
+  nav a{margin:0 14px 0 0}
+  .hero{padding:48px 6%}
+  .filters{grid-template-columns:1fr}
+  section{padding:30px 5%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">FREE <span>EVENTS</span></div>
+  <nav>
+    <a href="#events">Explore</a>
+    <a href="#share">Share an Event</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <small>A COMMUNITY FOR CULTURE & CREATIVITY</small>
+  <h1>Discover. Participate. Perform.</h1>
+  <p>
+    Find theatre, music, poetry, exhibitions and cultural
+    experiences around you. Culture belongs to everyone.
+  </p>
+  <a class="btn" href="#events">Explore Events</a>
+</div>
+
+<section id="events">
+  <h2 class="section-title">Discover What's Happening</h2>
+  <p class="sub">Find experiences, explore your city and be part of the culture.</p>
+
+  <div class="filters">
+    <input id="search" placeholder="Search events..." oninput="filterEvents()">
+    <select id="location" onchange="filterEvents()">
+      <option value="">All locations</option>
+      <option>Delhi</option>
+      <option>Noida</option>
+      <option>Gurugram</option>
+      <option>Agra</option>
+    </select>
+    <select id="category" onchange="filterEvents()">
+      <option value="">All categories</option>
+      <option>Theatre</option>
+      <option>Music</option>
+      <option>Poetry</option>
+      <option>Workshop</option>
+      <option>Exhibition</option>
+    </select>
+  </div>
+
+  <div class="events" id="eventList">
+    <article class="card" data-name="sample theatre performance" data-location="Delhi" data-category="Theatre">
+      <div class="poster">THEATRE</div>
+      <div class="card-body">
+        <span class="tag">Theatre · Example listing</span>
+        <h3>Community Theatre Night</h3>
+        <p class="detail">📍 Delhi</p>
+        <p class="detail">📅 Sample event – date to be added</p>
+        <p class="note">Illustrative listing. Not a confirmed event.</p>
+      </div>
+    </article>
+
+    <article class="card" data-name="sample poetry open mic" data-location="Noida" data-category="Poetry">
+      <div class="poster">POETRY</div>
+      <div class="card-body">
+        <span class="tag">Poetry · Example listing</span>
+        <h3>Open Mic Evening</h3>
+        <p class="detail">📍 Noida</p>
+        <p class="detail">📅 Sample event – date to be added</p>
+        <p class="note">Illustrative listing. Not a confirmed event.</p>
+      </div>
+    </article>
+
+    <article class="card" data-name="sample music gathering" data-location="Gurugram" data-category="Music">
+      <div class="poster">MUSIC</div>
+      <div class="card-body">
+        <span class="tag">Music · Example listing</span>
+        <h3>Independent Music Gathering</h3>
+        <p class="detail">📍 Gurugram</p>
+        <p class="detail">📅 Sample event – date to be added</p>
+        <p class="note">Illustrative listing. Not a confirmed event.</p>
+      </div>
+    </article>
+  </div>
+  <p id="noResults" style="display:none;color:var(--gold)">No matching events found.</p>
+</section>
+
+<section class="share" id="share">
+  <h2>Know About an Event?</h2>
+  <p class="sub">Help others discover it. Community event submissions will be enabled here.</p>
+  <p class="note">Submission and approval system coming in the next setup step.</p>
+</section>
+
+<section id="about">
+  <h2 class="section-title">Culture Belongs to Everyone.</h2>
+  <p class="sub">
+    Free Events is an open cultural community connecting
+    artists, performers, volunteers and audiences through
+    meaningful cultural experiences.
+  </p>
+</section>
+
+<footer>
+  <strong>FREE EVENTS</strong><br>
+  Discover. Participate. Perform.<br>
+  A community built around culture.
+</footer>
+
+<script>
+function filterEvents(){
+  const search=document.getElementById('search').value.toLowerCase();
+  const location=document.getElementById('location').value;
+  const category=document.getElementById('category').value;
+  const cards=document.querySelectorAll('.card');
+  let count=0;
+
+  cards.forEach(card=>{
+    const name=card.dataset.name;
+    const loc=card.dataset.location;
+    const cat=card.dataset.category;
+    const match=name.includes(search) &&
+      (!location || loc===location) &&
+      (!category || cat===category);
+    card.style.display=match?'block':'none';
+    if(match) count++;
+  });
+
+  document.getElementById('noResults').style.display=count?'none':'block';
+}
+</script>
+</body>
+</html>
